@@ -14,6 +14,7 @@ import { UsersService } from './services/users.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SeguridadService } from './models/seguridad.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [UsersService],
+  providers: [UsersService,SeguridadService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

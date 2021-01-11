@@ -14,8 +14,9 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label><label for="email">Correo</label></mat-label>
-        <input matInput type="email" placeholder="Ingrese su correo" name="email" ngModel required/>
-        <mat-error>Este campo es obligatorio</mat-error>
+        <input matInput type="email" ngModel  placeholder="Ingrese su correo" name="email" email ngModel required #emailInput="ngModel"/>
+        <mat-error *ngIf="emailInput.hasError('required')">Este campo es obligatorio</mat-error>
+        <mat-error *ngIf="!emailInput.hasError('required')">El correo es invalido</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label><label for="name">Clave</label></mat-label>
@@ -23,7 +24,7 @@
         <mat-error>Este campo es obligatorio</mat-error>
       </mat-form-field>
       <div class="input-wrapper-button">
-        <button mat-raised-button color="primary" type="submit">Registrarse</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="fs.invalid">Registrarse</button>
       </div>
   </form>
 </div>

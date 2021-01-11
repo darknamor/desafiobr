@@ -1,7 +1,7 @@
 <div class="portal">
   <div class="login-container">
     <div class="image-welcome"></div>
-    <login-app class="login-box" *ngIf="!registerUrl"></login-app>
+    <login-app class="login-box" *ngIf="!registerUrl && !estadoUsuario"></login-app>
     <register-app class="login-box" *ngIf="registerUrl"></register-app>
   </div>
 </div>

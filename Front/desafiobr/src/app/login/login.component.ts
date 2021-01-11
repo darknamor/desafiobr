@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { SeguridadService } from '../models/seguridad.service';
 
 @Component({
   selector: 'login-app',
@@ -6,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  constructor(private seguridadService: SeguridadService) {}
   ngOnInit(): void {}
-  logearUsuario(f) {
-    console.log('click', f);
+  loginUsuario(form: NgForm) {
+    this.seguridadService.login({
+      rut: form.value.rut,
+      password: form.value.password,
+    });
   }
 }
