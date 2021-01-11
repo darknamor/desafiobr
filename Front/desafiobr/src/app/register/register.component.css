@@ -97,3 +97,30 @@
   padding-top: 1.5em;
   padding-bottom: 1.5em;
 }
+
+mat-form-field{
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: #434343;
+  font: 15.5px Verdana, sans-serif;
+  color: inherit;
+  display: inline-block;
+  -ms-flex: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+button  {
+  min-width: 220px;
+  line-height: 48px;
+}
