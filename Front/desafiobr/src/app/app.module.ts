@@ -16,6 +16,12 @@ import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SeguridadService } from './models/seguridad.service';
 
+import { ProductComponent } from './product/product.component';
+import { LoadBalanceComponent } from './product/loadBalance/loadBalance.component';
+import { WithdrawBalanceComponent } from './product/withdrawBalance/withdrawBalance.component';
+import { TransferComponent } from './product/transfer/transfer.component';
+import { MovementsComponent } from './product/movements/movements.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +29,11 @@ import { SeguridadService } from './models/seguridad.service';
     PortalComponent,
     LoginComponent,
     RegisterComponent,
+    ProductComponent,
+    LoadBalanceComponent,
+    WithdrawBalanceComponent,
+    TransferComponent,
+    MovementsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +43,7 @@ import { SeguridadService } from './models/seguridad.service';
     MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [UsersService,SeguridadService],
+  providers: [UsersService, SeguridadService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

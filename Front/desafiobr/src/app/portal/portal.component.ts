@@ -11,17 +11,29 @@ import { SeguridadService } from '../models/seguridad.service';
 })
 export class PortalComponent implements OnInit, OnDestroy {
   public href: string = '';
-  public registerUrl: boolean;
+  public registerUrl: string;
   estadoUsuario: boolean;
   usuarioSubscription: Subscription;
+  menuUsuario: string;
   constructor(
     private seguridadServicio: SeguridadService,
     private router: Router
   ) {}
   agregarUsuario(f) {
     if (f.valid) {
-      console.log('value', f.value);
+      console.log('value', f);
     }
+  }
+  menuReset() {
+    this.menuUsuario = '';
+  }
+  navegacionMenu(msg) {
+    console.log('navegacion', msg);
+    this.menuUsuario = msg;
+  }
+  closeSession(){
+    console.log("cerrar sesion")
+    this.usuarioSubscription.unsubscribe();
   }
   ngOnInit() {
     this.usuarioSubscription = this.seguridadServicio.seguridadCambio.subscribe(
@@ -31,9 +43,9 @@ export class PortalComponent implements OnInit, OnDestroy {
     );
     this.href = this.router.url;
     if (this.href === '/registro') {
-      this.registerUrl = true;
-    } else {
-      this.registerUrl = false;
+      this.registerUrl = 'registro';
+    } else if (this.href === '/login') {
+      this.registerUrl = 'login';
     }
   }
   ngOnDestroy() {
