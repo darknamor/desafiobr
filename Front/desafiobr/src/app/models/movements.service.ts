@@ -1,27 +1,31 @@
+import { Injectable } from '@angular/core';
 import { Movements } from './movements.models';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class MovementsService {
-  private movemetsLista: Movements[] = [
-    {
-      monto: '14566',
-      destino: '17982131-6',
-      fecha: '2021-01-10',
-      tipo: 'Transferencia',
-    },
-    {
-      monto: '254456',
-      destino: '17946099-8',
-      fecha: '2021-01-11',
-      tipo: 'Retiro',
-    },
-    {
-      monto: '3564546',
-      destino: '17982131-6',
-      fecha: '2021-01-11',
-      tipo: 'Transferencia',
-    },
-  ];
+  baseUrl = environment.baseUrl;
+
+  private movementsLista: Movements[] = [];
+  private movementsSubject = new Subject<Movements[]>();
+
+  constructor(private http: HttpClient) {}
   getMovements() {
-    return this.movemetsLista.slice();
+    this.http
+      .get<Movements[]>(
+        this.baseUrl + 'api/movements/get-transfers/5ffb10188ad740420c7631fe'
+      )
+      .subscribe((data) => {
+        this.movementsLista = data;
+        console.log("movementsLista",this.movementsLista)
+        this.movementsSubject.next([...this.movementsLista]);
+      });
+  }
+  getActualListener() {
+    return this.movementsSubject.asObservable();
   }
 }

@@ -3,12 +3,12 @@
   <h3 class="title">Movimientos</h3>
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="fecha">
-      <mat-header-cell *matHeaderCellDef>Destino</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.fecha }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="monto">
-      <mat-header-cell *matHeaderCellDef>Destino</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.monto }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef>Monto</mat-header-cell>
+      <mat-cell *matCellDef="let element">${{ element.monto }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="destino">
       <mat-header-cell *matHeaderCellDef>Destino</mat-header-cell>

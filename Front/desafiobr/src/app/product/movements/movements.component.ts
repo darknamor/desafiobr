@@ -23,7 +23,12 @@ export class MovementsComponent implements OnInit {
     console.log('monto', form.value.amount);
   }
   ngOnInit() {
-    console.log(this.movementsService.getMovements());
-    this.dataSource.data = this.movementsService.getMovements();
+    //this.dataSource.data = this.movementsService.getMovements();
+    this.movementsService.getMovements();
+    this.movementsService
+      .getActualListener()
+      .subscribe((movements: Movements[]) => {
+        this.dataSource.data = movements;
+      });
   }
 }

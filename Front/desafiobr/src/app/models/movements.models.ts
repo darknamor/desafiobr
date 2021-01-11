@@ -1,6 +1,6 @@
 export interface Movements {
+  monto: string;
   fecha: string;
   destino: string;
-  monto: string;
   tipo: string;
 }

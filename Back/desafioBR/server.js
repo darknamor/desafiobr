@@ -11,6 +11,7 @@ connectDataBase();
 
 const user = require('./routes/usersRoute');
 const product = require('./routes/productsRoute');
+const transfer = require('./routes/transfersRoute');
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use('/api/user', user);
 app.use('/api/product', product);
+app.use('/api/movements', transfer);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

@@ -1,4 +1,5 @@
 const product = require('../models/Products');
+const users = require('../models/Users');
 
 const createProduct = async (userId) => {
   try {
@@ -28,14 +29,33 @@ const getProductByUser = async (request, response, next) => {
     next(new errorResponse('ERROR', 500));
   }
 };
-const transferAmount = async (request, response, next) => {
+const checkValidAndTransfer = async (rut, monto, destinatario) => {
   try {
-    const { accountId, balance } = request.body;
-    //console.log('requ', request.body);
+    const userId = await users.findOne({ rut }).select({ password: 0, __v: 0, username: 0, rut: 0, email: 0 });
+    const products = await product.find({ user: userId._id }).select({ balance: 1, _id: 1 });
+    const newAmount = parseInt(products[0].balance) - parseInt(monto);
+
+    const receiverId = await users.findOne({ rut: destinatario }).select({ password: 0, __v: 0, username: 0, rut: 0, email: 0 });
+    const receiverProducts = receiverId && (await product.find({ user: receiverId._id }).select({ balance: 1, _id: 1 }));
+    const receiverNewAmount = receiverProducts && parseInt(receiverProducts[0].balance) + parseInt(monto);
+
+    if (newAmount < 0 || receiverId === null) {
+      return false;
+    } else {
+      transferAmount(products[0]._id, newAmount);
+      transferAmount(receiverProducts[0]._id, receiverNewAmount);
+      return userId._id;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+const transferAmount = async (accountId, balance) => {
+  try {
     await product.findByIdAndUpdate(accountId, { balance });
     response.send({ status: 'OK', message: 'TRANSFER SUCCESSFUL' });
   } catch (error) {
-    next(new errorResponse('ERROR', 500));
+    return false;
   }
 };
 
@@ -43,5 +63,6 @@ module.exports = {
   createProduct,
   getAllProduct,
   getProductByUser,
+  checkValidAndTransfer,
   transferAmount,
 };

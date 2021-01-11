@@ -23,7 +23,7 @@ import { TransferComponent } from './product/transfer/transfer.component';
 import { MovementsComponent } from './product/movements/movements.component';
 
 import { MovementsService } from './models/movements.service';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +44,7 @@ import { MovementsService } from './models/movements.service';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
+    HttpClientModule,
   ],
   providers: [UsersService, SeguridadService, MovementsService],
   bootstrap: [AppComponent],
