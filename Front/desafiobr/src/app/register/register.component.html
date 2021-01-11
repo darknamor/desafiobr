@@ -1,0 +1,29 @@
+<a class="login-logo" routerLink="/home"></a>
+<div class="login-form">
+  <h3 class="title">Crea tu cuenta</h3>
+  <form class="login" (ngSubmit)="registrarUsuario(fs)" #fs="ngForm">
+    <div class="item-inner">
+      <div class="input-wrapper">
+        <div class="input-title"><label for="name">NOMBRE</label></div>
+        <input type="text" class="input-box" placeholder="Ingrese Nombre" name="name" ngModel required/>
+      </div>
+      <div class="input-wrapper">
+        <div class="input-title"><label for="rut">RUT</label></div>
+        <input type="text" class="input-box" placeholder="Ingrese RUT" name="rut" ngModel required/>
+      </div>
+      <div class="input-wrapper">
+        <div class="input-title"><label for="mail">CORREO</label></div>
+        <input type="text" class="input-box" placeholder="Ingrese Correo" name="email" ngModel required/>
+      </div>
+      <div class="input-wrapper">
+        <div class="input-title">
+          <label for="email">CONTRASEÑA</label>
+        </div>
+        <input type="password" class="input-box" placeholder="••••" name="password" ngModel required/>
+      </div>
+    </div>
+    <div class="input-wrapper-button">
+      <button class="brand-button primary" type="submit">Registrarse</button>
+    </div>
+  </form>
+</div>
