@@ -22,6 +22,8 @@ import { WithdrawBalanceComponent } from './product/withdrawBalance/withdrawBala
 import { TransferComponent } from './product/transfer/transfer.component';
 import { MovementsComponent } from './product/movements/movements.component';
 
+import { MovementsService } from './models/movements.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,7 @@ import { MovementsComponent } from './product/movements/movements.component';
     LoadBalanceComponent,
     WithdrawBalanceComponent,
     TransferComponent,
-    MovementsComponent
+    MovementsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { MovementsComponent } from './product/movements/movements.component';
     MaterialModule,
     FlexLayoutModule,
   ],
-  providers: [UsersService, SeguridadService],
+  providers: [UsersService, SeguridadService, MovementsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
