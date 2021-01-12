@@ -14,16 +14,18 @@ import { UsersService } from './services/users.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SeguridadService } from './models/seguridad.service';
-
 import { ProductComponent } from './product/product.component';
+
 import { LoadBalanceComponent } from './product/loadBalance/loadBalance.component';
 import { WithdrawBalanceComponent } from './product/withdrawBalance/withdrawBalance.component';
 import { TransferComponent } from './product/transfer/transfer.component';
 import { MovementsComponent } from './product/movements/movements.component';
 
 import { MovementsService } from './models/movements.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TransferService } from './models/transfer.service';
+import { SeguridadInterceptor } from './seguridad/seguridad-interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,12 @@ import { HttpClientModule } from '@angular/common/http';
     FlexLayoutModule,
     HttpClientModule,
   ],
-  providers: [UsersService, SeguridadService, MovementsService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SeguridadInterceptor, multi: true },
+    UsersService,
+    MovementsService,
+    TransferService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

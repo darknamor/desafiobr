@@ -15,7 +15,7 @@ const login = async (request, response, next) => {
       console.log('isOk', isOk);
       if (isOk) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn });
-        response.status(200).send({ status: 'OK', data: { token, expiresIn } });
+        response.status(200).send({ status: 'OK', data: { rut, token, expiresIn } });
       } else {
         next(new errorResponse('INVALID PASSWORD', 404));
       }

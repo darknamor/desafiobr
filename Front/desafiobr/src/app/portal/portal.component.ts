@@ -31,8 +31,9 @@ export class PortalComponent implements OnInit, OnDestroy {
     console.log('navegacion', msg);
     this.menuUsuario = msg;
   }
-  closeSession(){
-    console.log("cerrar sesion")
+  closeSession() {
+    console.log('cerrar sesion');
+    this.seguridadServicio.logout();
     this.usuarioSubscription.unsubscribe();
   }
   ngOnInit() {

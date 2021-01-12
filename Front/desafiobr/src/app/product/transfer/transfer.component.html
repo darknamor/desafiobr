@@ -1,7 +1,7 @@
 <a class="login-logo-inproduct" routerLink="/home"></a>
 <div class="login-form">
   <h3 class="title">Transferencia</h3>
-  <form fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="addBalance(f)" #f="ngForm">
+  <form fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="transferToUser(f)" #f="ngForm">
     <div class="input-wrapper-button">
       <mat-card-title>Saldo actual $11.231.321</mat-card-title>
     </div>
@@ -14,6 +14,7 @@
       <mat-label><label for="rut">RUT destinatario</label></mat-label>
       <input matInput type="text" placeholder="Ingrese su Rut" name="rut" ngModel required/>
       <mat-error>Este campo es obligatorio</mat-error>
+      <mat-error *ngIf="checkUser">RUT de destino invalido</mat-error>
     </mat-form-field>
     <div class="input-wrapper-button">
       <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Ingresar</button>
