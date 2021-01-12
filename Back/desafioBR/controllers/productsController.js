@@ -50,6 +50,22 @@ const checkValidAndTransfer = async (rut, monto, destinatario) => {
     return false;
   }
 };
+const checkValidAndMovement= async (rut, monto, destinatario) => {
+  try {
+    const userId = await users.findOne({ rut }).select({ password: 0, __v: 0, username: 0, rut: 0, email: 0 });
+    const products = await product.find({ user: userId._id }).select({ balance: 1, _id: 1 });
+    const newAmount = parseInt(products[0].balance) + parseInt(monto);
+
+    if (newAmount < 0) {
+      return false;
+    } else {
+      transferAmount(products[0]._id, newAmount);
+      return userId._id;
+    }
+  } catch (error) {
+    return false;
+  }
+};
 const transferAmount = async (accountId, balance) => {
   try {
     await product.findByIdAndUpdate(accountId, { balance });
@@ -64,5 +80,6 @@ module.exports = {
   getAllProduct,
   getProductByUser,
   checkValidAndTransfer,
+  checkValidAndMovement,
   transferAmount,
 };

@@ -35,6 +35,7 @@ export class TransferComponent implements OnInit {
         .makeTranferListener()
         .subscribe(() => {
           console.log('Transferencia existosa');
+          this.selectMenuIndex.emit();
         });
     }
   }
@@ -43,6 +44,5 @@ export class TransferComponent implements OnInit {
   }
   ngOnDestroy() {
     this.transferSubscription.unsubscribe();
-    //localStorage.removeItem('balance');
   }
 }

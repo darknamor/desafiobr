@@ -3,14 +3,16 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Transfer } from './transfer.model';
+import { Movement } from './movement.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TransferService {
+export class LoadBalanceService {
   baseUrl = environment.baseUrl;
-  transferSubject = new Subject();
+  loadBalanceSubject = new Subject();
   balanceData: string;
+  private balanceSubject = new Subject();
   constructor(private http: HttpClient) {}
 
   getProductById() {
@@ -26,14 +28,14 @@ export class TransferService {
       });
   }
 
-  makeTranfer(transfer: Transfer) {
+  makeMovement(movement: Movement) {
     this.http
-      .post(this.baseUrl + 'api/movements/transfer', transfer)
+      .post(this.baseUrl + 'api/movements/movement', movement)
       .subscribe((response) => {
-        this.transferSubject.next();
+        this.loadBalanceSubject.next();
       });
   }
-  makeTranferListener() {
-    return this.transferSubject.asObservable();
+  makeMovementListener() {
+    return this.loadBalanceSubject.asObservable();
   }
 }
