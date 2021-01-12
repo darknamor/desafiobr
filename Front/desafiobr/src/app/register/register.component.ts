@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
   registrarUsuario(form: NgForm) {
     this.seguridadService.regitrarUsuario({
-      nombre: form.value.name,
+      username: form.value.name,
       rut: form.value.rut,
       email: form.value.email,
       password: form.value.password,

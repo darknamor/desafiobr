@@ -15,7 +15,7 @@ const login = async (request, response, next) => {
       console.log('isOk', isOk);
       if (isOk) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn });
-        response.status(200).send({ status: 'OK', data: { rut, token, expiresIn } });
+        response.status(200).send({ status: 'OK',  userId: user._id, rut, token, expiresIn  });
       } else {
         next(new errorResponse('INVALID PASSWORD', 404));
       }
@@ -63,7 +63,19 @@ const getUserById = async (request, response, next) => {
     if (!data) {
       return next(new errorResponse(request.params.userId + ' NOT FOUND', 404));
     }
-    response.send({ status: 'OK', data: data });
+    response.send({ status: 'OK', data });
+  } catch (error) {
+    next(new errorResponse(request.params.userId + ' NOT FOUND', 404));
+  }
+};
+const getUserByRut = async (request, response, next) => {
+  try {
+    const { rut } = request.params;
+    const userId = await users.findOne({ rut }).select({ password: 0, __v: 0, username: 0, rut: 0, email: 0 });
+    if (!userId) {
+      return next(new errorResponse(request.params + ' NOT FOUND', 404));
+    }
+    response.send({ status: 'OK', data: userId });
   } catch (error) {
     next(new errorResponse(request.params.userId + ' NOT FOUND', 404));
   }
@@ -98,6 +110,7 @@ module.exports = {
   createUser,
   getUser,
   getUserById,
+  getUserByRut,
   updateUser,
   deleteUser,
 };

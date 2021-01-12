@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 import { Seguridad } from '../seguridad/seguridad.model';
+import { MovementsService } from './movements.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,17 +31,25 @@ export class SeguridadService {
   obtenerToken(): string {
     return this.token;
   }
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private movementsService: MovementsService
+  ) {}
 
-  regitrarUsuario(usr: Usuario) {
-    this.usuario = {
-      email: usr.email,
-      password: usr.password,
-      nombre: usr.nombre,
-      rut: usr.rut,
-    };
-    this.seguridadCambio.next(true);
-    this.router.navigate(['/home']);
+  regitrarUsuario(usr: Usuario): void {
+    this.http
+      .post<Usuario>(this.baseUrl + 'api/user/create', usr)
+      .subscribe((response) => {
+        this.usuario = {
+          username: response.username,
+          rut: response.rut,
+          email: response.email,
+          password: response.password,
+        };
+        this.seguridadCambio.next(true);
+        this.router.navigate(['/home']);
+      });
   }
   login(loginData: LoginData): void {
     this.http
@@ -48,22 +57,31 @@ export class SeguridadService {
       .subscribe((response) => {
         this.token = response.token;
         this.usuario = {
-          nombre: '',
+          username: '',
           rut: response.rut,
           email: '',
           password: '',
         };
         localStorage.setItem('token', response.token);
+        localStorage.setItem('rut', response.rut);
+        localStorage.setItem('userId', response.userId);
         this.seguridadCambio.next(true);
       });
   }
   logout() {
     this.usuario = null;
     this.seguridadCambio.next(false);
+    localStorage.removeItem('rut');
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('balance');
     this.router.navigate(['/home']);
   }
   getUser() {
     return { ...this.usuario };
+  }
+  getProduct() {}
+  onSesion() {
+    return this.token != null;
   }
 }

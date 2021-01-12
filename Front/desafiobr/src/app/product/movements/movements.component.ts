@@ -1,4 +1,9 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy,
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  OnDestroy,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,6 +22,7 @@ export class MovementsComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<Movements>();
 
   private movementSubscription: Subscription;
+  idConsulta: string;
 
   @Output() selectMenuIndex = new EventEmitter();
   backToMenu() {

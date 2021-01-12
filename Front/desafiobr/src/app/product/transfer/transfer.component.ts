@@ -10,10 +10,11 @@ import { TransferService } from '../../models/transfer.service';
 })
 export class TransferComponent implements OnInit {
   fechaPublicacion: string;
-  rutActual: string = '17946099-8';
+  rutActual: string = localStorage.getItem('rut');
   tipo: string = 'Transferencia';
   checkUser: boolean = true;
   transferSubscription = new Subscription();
+  saldo: string;
   @Output() selectMenuIndex = new EventEmitter();
   backToMenu() {
     this.selectMenuIndex.emit();
@@ -37,8 +38,11 @@ export class TransferComponent implements OnInit {
         });
     }
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.saldo = localStorage.getItem('balance');
+  }
   ngOnDestroy() {
     this.transferSubscription.unsubscribe();
+    //localStorage.removeItem('balance');
   }
 }

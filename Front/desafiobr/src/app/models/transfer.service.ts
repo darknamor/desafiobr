@@ -10,10 +10,26 @@ import { Transfer } from './transfer.model';
 export class TransferService {
   baseUrl = environment.baseUrl;
   transferSubject = new Subject();
+  balanceData: string;
+  private balanceSubject = new Subject();
   constructor(private http: HttpClient) {}
 
+  getProductById() {
+    this.http
+      .get<any>(
+        this.baseUrl +
+          'api/product/get-by-user/' +
+          localStorage.getItem('userId')
+      )
+      .subscribe((data) => {
+        this.balanceData = data.data[0].balance;
+        localStorage.setItem('balance', data.data[0].balance);
+      });
+  }
+
   makeTranfer(transfer: Transfer) {
-    this.http.post(this.baseUrl + 'api/movements/transfer', transfer)
+    this.http
+      .post(this.baseUrl + 'api/movements/transfer', transfer)
       .subscribe((response) => {
         this.transferSubject.next();
       });
